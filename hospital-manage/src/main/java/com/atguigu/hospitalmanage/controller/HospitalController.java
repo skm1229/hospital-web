@@ -1,12 +1,13 @@
 package com.atguigu.hospitalmanage.controller;
 
+import com.atguigu.hospitalmanage.service.ApiService;
+import com.atguigu.hospitalmanage.service.HospitalService;
+import com.atguigu.hospitalmanage.utils.HospitalException;
+import com.atguigu.hospitalmanage.utils.HttpRequestHelper;
+import com.atguigu.hospitalmanage.utils.Result;
+import com.atguigu.hospitalmanage.utils.ResultCodeEnum;
 import io.swagger.annotations.Api;
-import jw.hmanage.hospitalmanage.service.ApiService;
-import jw.hmanage.hospitalmanage.service.HospitalService;
-import jw.hmanage.hospitalmanage.utils.HttpRequestHelper;
-import jw.hmanage.hospitalmanage.utils.Result;
-import jw.hmanage.hospitalmanage.utils.ResultCodeEnum;
-import jw.hmanage.hospitalmanage.utils.HospitalException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

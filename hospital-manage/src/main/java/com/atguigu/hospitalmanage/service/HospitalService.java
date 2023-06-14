@@ -1,8 +1,7 @@
 package com.atguigu.hospitalmanage.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import jw.hmanage.hospitalmanage.model.HospitalSet;
-import jw.hmanage.hospitalmanage.model.Schedule;
+
 
 import java.io.IOException;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package com.atguigu.hospitalmanage.config;
 
-import jw.hmanage.hospitalmanage.utils.HospitalException;
+import com.atguigu.hospitalmanage.utils.HospitalException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

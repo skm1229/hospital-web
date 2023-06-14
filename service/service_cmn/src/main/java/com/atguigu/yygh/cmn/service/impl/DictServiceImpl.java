@@ -9,12 +9,14 @@ import com.atguigu.yygh.model.cmn.Dict;
 import com.atguigu.yygh.model.hosp.HospitalSet;
 import com.atguigu.yygh.vo.cmn.DictEeVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -113,5 +115,59 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         queryWrapper.eq(Dict::getParentId,id);
         Integer count = baseMapper.selectCount(queryWrapper);
         return count > 0;
+    }
+
+
+    /**
+     * 根据dictcode和value查询
+     * @param dictCode   医院类型
+     * @param value      字典编码
+     * @return
+     */
+    @Override
+    public String getDictName(String dictCode, String value) {
+        //条件构造器
+        LambdaQueryWrapper<Dict> queryWrapper = new LambdaQueryWrapper<>();
+        //如果dictCode为空，直接根据value查询
+        if(StringUtils.isEmpty(dictCode)) {
+            //直接根据value查询
+            queryWrapper.eq(Dict::getValue,value);
+            Dict dict = baseMapper.selectOne(queryWrapper);
+            return dict.getName();
+        } else {//如果dictCode不为空，根据dictCode和value查询
+            //根据dictcode查询dict对象，得到dict的id值
+            Dict codeDict = this.getDictByDictCode(dictCode);
+            Long parent_id = codeDict.getId();
+            //根据parent_id和value进行查询
+            queryWrapper.eq(Dict::getParentId, parent_id)
+                        .eq(Dict::getValue, value);
+            Dict finalDict = baseMapper.selectOne(queryWrapper);
+            return finalDict.getName();
+        }
+    }
+
+    /**
+     * 根据dictCode获取下级节点
+     * @param dictCode  字典编码
+     * @return
+     */
+    @Override
+    public List<Dict> findByDictCode(String dictCode) {
+        //根据dictcode获取对应id
+        Dict dict = this.getDictByDictCode(dictCode);
+        //根据id获取子节点
+        List<Dict> chlidData = this.findChildData(dict.getId());
+        return chlidData;
+    }
+    /**
+     * 根据dictCode获取dict对象
+     * @param dictCode  字典编码
+     * @return
+     */
+    private Dict getDictByDictCode(String dictCode) {
+        LambdaQueryWrapper<Dict> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Dict::getDictCode,dictCode);
+        Dict codeDict = baseMapper.selectOne(queryWrapper);
+        return codeDict;
     }
 }

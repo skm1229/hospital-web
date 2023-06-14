@@ -1,10 +1,11 @@
 package com.atguigu.hospitalmanage.controller;
 
+import com.atguigu.hospitalmanage.mapper.HospitalSetMapper;
+import com.atguigu.hospitalmanage.model.HospitalSet;
+import com.atguigu.hospitalmanage.service.ApiService;
+import com.atguigu.hospitalmanage.utils.HospitalException;
 import io.swagger.annotations.Api;
-import jw.hmanage.hospitalmanage.mapper.HospitalSetMapper;
-import jw.hmanage.hospitalmanage.model.HospitalSet;
-import jw.hmanage.hospitalmanage.service.ApiService;
-import jw.hmanage.hospitalmanage.utils.HospitalException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -66,7 +67,7 @@ public class ApiController extends BaseController {
 
 	@RequestMapping(value="/hospital/create")
 	public String createHospital(ModelMap model) {
-		return "index";
+		return "hospital/create";
 	}
 
 	@RequestMapping(value="/hospital/save",method=RequestMethod.POST)
@@ -121,8 +122,8 @@ public class ApiController extends BaseController {
 
 	@RequestMapping("/schedule/list")
 	public String findSchedule(ModelMap model,
-								 @RequestParam(defaultValue = "1") int pageNum,
-								 @RequestParam(defaultValue = "10") int pageSize,
+							   @RequestParam(defaultValue = "1") int pageNum,
+							   @RequestParam(defaultValue = "10") int pageSize,
 							   HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		try {
 			HospitalSet hospitalSet = hospitalSetMapper.selectById(1);
@@ -179,7 +180,6 @@ public class ApiController extends BaseController {
 	@RequestMapping(value="/department/remove/{depcode}",method=RequestMethod.GET)
 	public String removeDepartment(ModelMap model, @PathVariable String depcode, RedirectAttributes redirectAttributes) {
 		apiService.removeDepartment(depcode);
-
 		this.successMessage(null, redirectAttributes);
 		return "redirect:/department/list";
 	}
@@ -191,6 +191,5 @@ public class ApiController extends BaseController {
 		this.successMessage(null, redirectAttributes);
 		return "redirect:/schedule/list";
 	}
-
 }
 

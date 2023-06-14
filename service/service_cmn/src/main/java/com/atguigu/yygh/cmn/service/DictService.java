@@ -14,16 +14,31 @@ public interface DictService extends IService<Dict> {
      * @param id  父id
      * @return
      */
-    public List<Dict> findChildData(Long id);
+    List<Dict> findChildData(Long id);
 
     /**
      * 导出数据字典接口
      * @param response
      */
-    public void exportDictData(HttpServletResponse response);
+    void exportDictData(HttpServletResponse response);
     /**
      * 导入数据字典接口
      * @param file
      */
-    public void importDictData(MultipartFile file);
+    void importDictData(MultipartFile file);
+
+    /**
+     * 根据dictcode和value查询
+     * @param dictCode   医院类型
+     * @param value      字典编码
+     * @return
+     */
+    String getDictName(String dictCode, String value);
+
+    /**
+     * 根据dictCode获取下级节点
+     * @param dictCode  字典编码
+     * @return
+     */
+    List<Dict> findByDictCode(String dictCode);
 }

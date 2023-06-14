@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 @Api(value = "医院设置管理")
-@CrossOrigin     //运行跨越访问
+//@CrossOrigin     //运行跨越访问
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
 public class HospitalSetController {

@@ -1,7 +1,7 @@
 package com.atguigu.hospitalmanage.mapper;
 
+import com.atguigu.hospitalmanage.model.OrderInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import jw.hmanage.hospitalmanage.model.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

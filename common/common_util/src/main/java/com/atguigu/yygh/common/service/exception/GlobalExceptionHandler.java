@@ -32,9 +32,9 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(YyghException.class)
+    @ExceptionHandler(HospitalException.class)
     @ResponseBody
-    public Result error(YyghException e) {
+    public Result error(HospitalException e) {
         e.printStackTrace();
         return Result.fail();
     }

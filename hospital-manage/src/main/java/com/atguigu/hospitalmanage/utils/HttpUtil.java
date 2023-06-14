@@ -41,6 +41,11 @@ public final class HttpUtil {
 	/**
 	 * @param strUrl
 	 * @param reqmethod
+	 *
+	 *
+	 *
+	 *
+	 *
 	 * @param reqData
 	 * @return
 	 */

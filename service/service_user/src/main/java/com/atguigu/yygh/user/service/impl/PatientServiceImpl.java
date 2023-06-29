@@ -1,11 +1,11 @@
 package com.atguigu.yygh.user.service.impl;
 
-import com.atguigu.cmn.client.DictFeignClient;
+import com.atguigu.cmnclient.DictFeignClient;
 import com.atguigu.yygh.enums.DictEnum;
 import com.atguigu.yygh.model.user.Patient;
 import com.atguigu.yygh.user.mapper.PatientMapper;
 import com.atguigu.yygh.user.service.PatientService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +24,10 @@ public class PatientServiceImpl extends
     @Override
     public List<Patient> findAllUserId(Long userId) {
         //根据userid查询所有就诊人信息列表
-        QueryWrapper<Patient> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id",userId);
+        LambdaQueryWrapper<Patient> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Patient::getUserId,userId);
 
-        List<Patient> patientList = baseMapper.selectList(wrapper);
+        List<Patient> patientList = baseMapper.selectList(queryWrapper);
 
 
         //通过远程调用，得到编码对应具体内容，查询数据字典表内容

@@ -110,11 +110,11 @@ public class HospApiController {
         return scheduleService.getScheduleOrderVo(scheduleId);
     }
 
-//    @ApiOperation(value = "获取医院签名信息")
-//    @GetMapping("inner/getSignInfoVo/{hoscode}")
-//    public SignInfoVo getSignInfoVo(
-//            @ApiParam(name = "hoscode", value = "医院code", required = true)
-//            @PathVariable("hoscode") String hoscode) {
-//        return hospitalSetService.getSignInfoVo(hoscode);
-//    }
+    @ApiOperation(value = "获取医院签名信息")
+    @GetMapping("inner/getSignInfoVo/{hoscode}")
+    public SignInfoVo getSignInfoVo(
+            @ApiParam(name = "hoscode", value = "医院code", required = true)
+            @PathVariable("hoscode") String hoscode) {
+        return hospitalSetService.getSignInfoVo(hoscode);
+    }
 }

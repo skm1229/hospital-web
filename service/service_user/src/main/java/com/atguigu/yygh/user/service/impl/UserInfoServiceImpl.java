@@ -164,24 +164,15 @@ public class UserInfoServiceImpl  extends
         String createTimeBegin = userInfoQueryVo.getCreateTimeBegin(); //开始时间
         String createTimeEnd = userInfoQueryVo.getCreateTimeEnd(); //结束时间
         //对条件值进行非空判断
-        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        if(!StringUtils.isEmpty(name)) {
-            wrapper.like("name",name);
-        }
-        if(!StringUtils.isEmpty(status)) {
-            wrapper.eq("status",status);
-        }
-        if(!StringUtils.isEmpty(authStatus)) {
-            wrapper.eq("auth_status",authStatus);
-        }
-        if(!StringUtils.isEmpty(createTimeBegin)) {
-            wrapper.ge("create_time",createTimeBegin);
-        }
-        if(!StringUtils.isEmpty(createTimeEnd)) {
-            wrapper.le("create_time",createTimeEnd);
-        }
+        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(!StringUtils.isEmpty(name),UserInfo::getName,name);
+        queryWrapper.eq(!StringUtils.isEmpty(status),UserInfo::getStatus,status);
+        queryWrapper.eq(!StringUtils.isEmpty(authStatus),UserInfo::getAuthStatus,authStatus);
+        queryWrapper.ge(!StringUtils.isEmpty(createTimeBegin),UserInfo::getCreateTime,createTimeBegin);
+        queryWrapper.le(!StringUtils.isEmpty(createTimeEnd),UserInfo::getCreateTime,createTimeEnd);
+
         //调用mapper的方法
-        IPage<UserInfo> pages = baseMapper.selectPage(pageParam, wrapper);
+        IPage<UserInfo> pages = baseMapper.selectPage(pageParam, queryWrapper);
         //编号变成对应值封装
         pages.getRecords().stream().forEach(item -> {
             this.packageUserInfo(item);
